@@ -64,9 +64,9 @@ call plug#begin()
         Plug 'artur-shaik/vim-javacomplete2'
 
         "Scala
-        Plug 'ensime/ensime-vim'
-        Plug 'ktvoelker/sbt-vim'
-        Plug 'derekwyatt/vim-scala'
+        "Plug 'ensime/ensime-vim'
+        "Plug 'ktvoelker/sbt-vim'
+        "Plug 'derekwyatt/vim-scala'
 
         "indent tracker
         Plug 'Yggdroot/indentLine'
