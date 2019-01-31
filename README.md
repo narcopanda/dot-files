@@ -8,4 +8,4 @@ This also has a script the install my config for vim, tmux, and you complete me
   5. launch vim then type :PlugInstall (check vim plug docs for help)
   6. To compile YCM (Check [YCM ](https://github.com/Valloric/YouCompleteMe#linux-64-bit)for full install guide)
       * cd /.vim/plugged/YouCompleteMe
-      * run the install.py (if you just want c-family support then run install.py --clang-completer)
+      * run the python3 install.py (if you just want c-family support then run python3 install.py --clang-completer)
