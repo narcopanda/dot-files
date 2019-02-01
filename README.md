@@ -2,10 +2,12 @@
 This also has a script the install my config for vim, tmux, and you complete me
 ## Install Guide
   1. sudo apt install build-essential cmake python3-dev
-  2. wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+  2.```
+    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
     sudo apt-get update
     sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-6.0 main"
     sudo apt-get install -y clang-6.0 lld-6.0
+    ```
   3. cd dot-files
   4. chmod +x install.sh
   5. ./install.sh
