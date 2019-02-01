@@ -7,7 +7,6 @@ This also has a script the install my config for vim, tmux, and you complete me
     sudo apt-get update
     sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-6.0 main"
     sudo apt-get install -y clang-6.0 lld-6.0
-    ```
   3. cd dot-files
   4. chmod +x install.sh
   5. ./install.sh
