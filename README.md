@@ -1,10 +1,11 @@
 # This is a collection of my dot-files from vim to i3
 This also has a script the install my config for vim, tmux, and you complete me
 ## Install Guide
-  1.) sudo apt install build-essential cmake python3-dev
-      wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-      sudo apt-get update
-      sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-6.0 main"
+  1.
+    sudo apt install build-essential cmake python3-dev
+    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+    sudo apt-get update
+    sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-6.0 main"
     sudo apt-get install -y clang-6.0 lld-6.0
   2. cd dot-files
   3. chmod +x install.sh
