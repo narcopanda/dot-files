@@ -5,7 +5,6 @@ set number
 set relativenumber
 set undofile
 "set spell!
-"set clipboard=unnamed
 set shiftwidth=2 softtabstop=2 expandtab
 set autoindent
 set pastetoggle=<F2>
@@ -64,9 +63,9 @@ call plug#begin()
         Plug 'artur-shaik/vim-javacomplete2'
 
         "Scala
-        "Plug 'ensime/ensime-vim'
-        "Plug 'ktvoelker/sbt-vim'
-        "Plug 'derekwyatt/vim-scala'
+        Plug 'ensime/ensime-vim'
+        Plug 'ktvoelker/sbt-vim'
+        Plug 'derekwyatt/vim-scala'
 
         "indent tracker
         Plug 'Yggdroot/indentLine'
@@ -101,11 +100,9 @@ call plug#begin()
 
 call plug#end()
 
-
 "CtrlP plugin control
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
 
 "airline edits
 let g:airline_powerline_fonts = 1
@@ -114,7 +111,6 @@ let g:airline#extensions#tmuxline#enabled = 0
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -129,10 +125,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "YOUCOMPLETEME
 "---------------------------------------------------------------
 "sets the path of clang for ycm
-"let g:clang_library_path='/usr/lib/libclang.so'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-"let g:ycm_global_ycm_extra_conf = "~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py
 
 "NERDTree autoloader"
 "function! StartUp()
@@ -149,45 +143,11 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "color scheme"
 "--------------------"
 
-"colorscheme monokai_pro
-
-"set background=dark
-"colorscheme material-monokai
-"let g:materialmonokai_italic=1
-"let g:airline_theme='materialmonokai'
-
-"colorscheme one
-"set background=dark
-"let g:one_allow_italics = 1
-"let g:airline_theme='one'
-
-"colorscheme onedark
-"let g:airline_theme='onedark'
-"let g:onedark_terminal_italics = 1
-
-"set background=dark
-"colorscheme spacemacs-theme
-
-"colorscheme nord
-"let g:nord_italic_comments = 1
-"let g:nord_comment_brightness = 12
-"let g:airline_theme='nord'
-
-"colorscheme dracula
-
-"colorscheme onehalfdark
-"let g:airline_theme='onehalfdark'
-"let g:onehalfdark_terminal_italics = 1
-
 colorscheme space-vim-dark
 hi Normal     ctermbg=NONE guibg=NONE
 hi LineNr     ctermbg=NONE guibg=NONE
 hi SignColumn ctermbg=NONE guibg=NONE
 hi Comment cterm=italic
-
-
-
-
 
 "java autocomplete function"
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -313,4 +273,6 @@ au BufRead,BufNewFile *.py,*.pyw, set textwidth=79
 " autmatically deletes all trailing whitespace on save
   autocmd BufWritePre * %s/\s\+$//e
 " run xrdb whenever Xdefaults or Xresources are updated.
- " autocmd BufWritePost ~/.Xresources, ~/.Xdefaults !xrdb %
+  autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb merge %
+" recompile suckless programs automatically:
+  autocmd BufWritePost config.h,config.def.h !sudo make install
