@@ -276,3 +276,5 @@ au BufRead,BufNewFile *.py,*.pyw, set textwidth=79
   autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb merge %
 " recompile suckless programs automatically:
   autocmd BufWritePost config.h,config.def.h !sudo make install
+" recompile resume
+  autocmd BufWritePost cv-sean-rowland.tex !xelatex cv-sean-rowland.tex
