@@ -46,6 +46,13 @@ call plug#begin()
         Plug 'wikitopian/hardmode'
         Plug 'terryma/vim-multiple-cursors'
         Plug 'jceb/vim-orgmode'
+        Plug 'TaDaa/vimade'
+        Plug 'leafgarland/typescript-vim'
+
+
+        "javascript
+        Plug 'mxw/vim-jsx'
+        Plug 'pangloss/vim-javascript'
 
         "autocomplete/syntax checker
         Plug 'Valloric/YouCompleteMe'
@@ -135,8 +142,8 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 "	end
 "endfunction
 "autocmd VimEnter * call StartUp()
-
-
+"NERDTree toggle
+nmap <leader>n :NERDTreeToggle<CR>
 "NERDTree closer"
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -278,3 +285,5 @@ au BufRead,BufNewFile *.py,*.pyw, set textwidth=79
   autocmd BufWritePost config.h,config.def.h !sudo make install
 " recompile resume
   autocmd BufWritePost cv-sean-rowland.tex !xelatex cv-sean-rowland.tex
+" temp autocompile for hw03
+  autocmd BufWritePost pexec.c !gcc -o pexec pexec.c -g
