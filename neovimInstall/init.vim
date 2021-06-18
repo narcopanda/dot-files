@@ -1,4 +1,15 @@
+set mouse=a
+
+
 set number
+set nowrap
+set smarttab
+set autoindent
+set iskeyword+=-
+set smartindent
+set laststatus=0
+set showtabline=4
+
 syntax on
 set relativenumber
 set shiftwidth=4
@@ -6,7 +17,7 @@ set shiftwidth=4
 let mapleader = ","
 
 "folding
-set foldmethod=syntax
+"set foldmethod=syntax
 imap jj <esc>
 vmap m <esc>
 "shortcut for saving
@@ -23,6 +34,7 @@ vnoremap <S-j> :m'>+<CR>gv=gv
 vnoremap <S-k> :m-2<CR>gv=gv
 
 call plug#begin()
+  Plug 'preservim/tagbar'
 	Plug 'bling/vim-airline'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
@@ -31,7 +43,7 @@ call plug#begin()
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'sheerun/vim-polyglot'
 	Plug 'omnisharp/omnisharp-vim'
-	Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep'  }
+	Plug 'chalenger-deep-theme/vim', { 'as': 'challenger-deep'  }
 	Plug 'skbolton/embark'
 	Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep'  }
 	Plug 'triglav/vim-visual-increment'
@@ -44,14 +56,22 @@ call plug#begin()
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 	Plug 'scrooloose/nerdcommenter'
-	"Plug 'ryanoasis/vim-devicons'
+	Plug 'wincent/terminus'
+	Plug 'unblevable/quick-scope'
+	Plug 'wesQ3/vim-windowswap'
+	Plug 'justinmk/vim-sneak'
+	Plug 'Yggdroot/indentLine'
+	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+	"uncomment these when neovim goes to .5
+	"Plug 'kyazdani42/nvim-web-devicons'
+	"Plug 'romgrk/barbar.nvim'
 call plug#end()
 
 if has('nvim') || has('termguicolors')
 	  set termguicolors
 endif
 "let g:airline_powerline_fonts = 1
-
+let g:tagbar_type_dart = { 'ctagsbin': '~/.pub-cache/bin/dart_ctags' }
 "colorscheme embark
 colorscheme challenger_deep
 if has('nvim') || has('termguicolors')
@@ -60,7 +80,7 @@ endif
 
 "NERDTree stuff
 "let g:webdevicons_enable_nerdtree = 1
-nmap <leader>n :NERDTreeToggle<CR>
+"nmap <leader>n :NERDTreeToggle<CR>
 "NERDTree closer"
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeGitStatusWithFlags = 1
@@ -106,6 +126,7 @@ function! s:check_back_space() abort
 " coc global extenstion
 let g:coc_global_extensions = [
     \'coc-snippets',
+    \'coc-explorer',
     \'coc-webpack',
     \'coc-vimlsp',
     \'coc-ultisnips',
@@ -122,6 +143,7 @@ let g:coc_global_extensions = [
     \'coc-html',
     \'coc-css',
     \'coc-angular',
+    \'coc-flutter'
     \]
 let g:coc_explorer_global_presets = {
 \   '.vim': {
@@ -151,8 +173,8 @@ let g:coc_explorer_global_presets = {
 \ }
 
 " Use preset argument to open it
-nmap <space>ed :CocCommand explorer --preset .vim<CR>
-nmap <space>ef :CocCommand explorer --preset floating<CR>
+nmap <leader>n :CocCommand explorer --preset<CR>
+nmap <space>n :CocCommand explorer --preset floating<CR>
 "To code navigation.
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
@@ -207,7 +229,6 @@ else
 endif
 
 
-
 let g:fzf_branch_actions = {
       \   'checkout': {
       \   'prompt': 'Checkout> ',
@@ -251,3 +272,5 @@ let g:fzf_branch_actions = {
       \},
       \}
 
+"fuzzy find selected word
+nnoremap <leader>aa :FzfAg <C-R><C-W><CR>
