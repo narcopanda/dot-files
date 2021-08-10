@@ -1,5 +1,5 @@
 set mouse=a
-
+set termguicolors
 
 set number
 set nowrap
@@ -39,13 +39,10 @@ call plug#begin()
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
 	Plug 'preservim/nerdtree'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'sheerun/vim-polyglot'
 	Plug 'omnisharp/omnisharp-vim'
-	Plug 'chalenger-deep-theme/vim', { 'as': 'challenger-deep'  }
 	Plug 'skbolton/embark'
-	Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep'  }
 	Plug 'triglav/vim-visual-increment'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 	Plug 'junegunn/fzf.vim'
@@ -62,21 +59,47 @@ call plug#begin()
 	Plug 'justinmk/vim-sneak'
 	Plug 'Yggdroot/indentLine'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+	Plug 'norcalli/nvim-colorizer.lua'
+
+	Plug 'kdheepak/lazygit.nvim'
+
+	"autocomplete
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+	"colorscheme
+	Plug 'Th3Whit3Wolf/space-nvim'
+	Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep'  }
+
 	"uncomment these when neovim goes to .5
-	"Plug 'kyazdani42/nvim-web-devicons'
+	Plug 'kyazdani42/nvim-web-devicons'
+	Plug 'norcalli/nvim-colorizer.lua'
 	"Plug 'romgrk/barbar.nvim'
+	Plug 'akinsho/nvim-bufferline.lua'
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  "We recommend updating the parsers on update
+	Plug 'nvim-treesitter/playground'
+	Plug 'nvim-lua/popup.nvim'
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'nvim-telescope/telescope.nvim'
+	"Plug 'folke/trouble.nvim'
+	"Plug 'folke/lsp-colors.nvim'
+
+	"lsp stuff
+	Plug 'neovim/nvim-lspconfig'
+	"Plug 'akinsho/flutter-tools.nvim'
 call plug#end()
+
+lua require'colorizer'.setup()
 
 if has('nvim') || has('termguicolors')
 	  set termguicolors
 endif
-"let g:airline_powerline_fonts = 1
-let g:tagbar_type_dart = { 'ctagsbin': '~/.pub-cache/bin/dart_ctags' }
+
 "colorscheme embark
 colorscheme challenger_deep
-if has('nvim') || has('termguicolors')
-	set termguicolors
-endif
+"colorscheme space-nvim
+"
+"let g:airline_powerline_fonts = 1
+let g:tagbar_type_dart = { 'ctagsbin': '~/.pub-cache/bin/dart_ctags' }
 
 "NERDTree stuff
 "let g:webdevicons_enable_nerdtree = 1
@@ -206,24 +229,39 @@ nmap <space>el :CocList explPresets
  let g:go_highlight_variable_declarations = 1
  let g:go_auto_sameids = 1
 
-"fzf
+"telescope
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+"trouble
+"nnoremap <leader>xx <cmd>TroubleToggle<cr>
+"nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
+"nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
+"nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+"nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+"nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+
+ "fzf
 let g:fzf_buffer_jump = 1
 let g:fzf_tags_command = 'ctags -R'
 let g:fzf_layout = {'window': {'width': 0.8, 'height': 0.8}}
 let $FZF_DEFAULT_OPTS='--reverse'
 let g:fzf_command_prefix = 'Fzf'
 if executable('fzf')
-	nnoremap <leader>f :FzfFiles<cr>
-	nnoremap <leader>t :FzfTags<cr>
+	"nnoremap <leader>f :FzfFiles<cr>
+	"nnoremap <leader>t :FzfTags<cr>
 	nnoremap <leader>tb :FzfBTags<cr>
-	nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
-	nnoremap <leader>c :FzfColors<CR>
-	nnoremap <leader>l :FzfLines<CR>
-	nnoremap <leader>bl :FzfBLines<CR>
-	nnoremap <leader>ag :FzfAg<CR>
-	nnoremap <leader>s :FzfSnippets<cr>
-	nnoremap <leader>b :FzfBuffers<cr>
-	nnoremap <leader>gc :FzfGCheckout<CR>
+	"nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
+	"nnoremap <leader>c :FzfColors<CR>
+	"nnoremap <leader>l :FzfLines<CR>
+	"nnoremap <leader>bl :FzfBLines<CR>
+	"nnoremap <leader>ag :FzfAg<CR>
+	"nnoremap <leader>s :FzfSnippets<cr>
+	"nnoremap <leader>b :FzfBuffers<cr>
+	"nnoremap <leader>gc :FzfGBranches<CR>
 else
 	nnoremap <leader>v :CtrlP<Space><cr>
 endif
@@ -274,3 +312,77 @@ let g:fzf_branch_actions = {
 
 "fuzzy find selected word
 nnoremap <leader>aa :FzfAg <C-R><C-W><CR>
+
+" setup mapping to call :LazyGit
+nnoremap <silent> <leader>lg :LazyGit<CR>
+
+"lua stuff
+
+"colorizer
+lua << EOF
+require('colorizer').setup(
+	{'*'},
+	{
+			RGB = true;
+			RRGGBB = true;
+			names = true;
+			RRGGBBAA = true;
+			rgb_fn = true;
+			hsl_fn = true;
+			css = true;
+			css_fn = true;
+});
+EOF
+
+"telescope
+lua << EOF
+require('telescope').setup{
+	defaults = {
+	    vimgrep_arguments = {
+	      'rg',
+	      '--color=never',
+	      '--no-heading',
+	      '--with-filename',
+	      '--line-number',
+	      '--column',
+	      '--smart-case'
+	    },
+	    prompt_position = "bottom",
+	    prompt_prefix = "> ",
+	    selection_caret = "> ",
+	    entry_prefix = "  ",
+	    initial_mode = "insert",
+	    selection_strategy = "reset",
+	    sorting_strategy = "descending",
+	    layout_strategy = "horizontal",
+	    layout_defaults = {
+	      horizontal = {
+	        mirror = false,
+	      },
+	      vertical = {
+	        mirror = false,
+	      },
+	    },
+	    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+	    file_ignore_patterns = {},
+	    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+	    shorten_path = true,
+	    winblend = 0,
+	    width = 0.75,
+	    preview_cutoff = 120,
+	    results_height = 1,
+	    results_width = 0.8,
+	    border = {},
+	    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+	    color_devicons = true,
+	    use_less = true,
+	    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+	    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+	    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+	    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+	
+	    -- Developer configurations: Not meant for general override
+	    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+	}
+}
+EOF
